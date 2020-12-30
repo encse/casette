@@ -15,6 +15,7 @@ function generateSample(freq: number) {
 function generateDigit(d: number) {
     return generateSample([1000, 2000, 3000][d]);
 }
+
 function decodeDigit(sample: number[]) {
     let f = decodeSample(sample);
     return (
@@ -23,6 +24,7 @@ function decodeDigit(sample: number[]) {
                 2
     );
 }
+
 function decodeSample(sample: number[]) {
     var c = 0;
     for (var i = 1; i < sample.length; i++) {
@@ -62,18 +64,18 @@ function decodeString(samples: number[][]): string {
     let digits = samples.map(decodeDigit);
     let st = "";
     for (let i = 0; i < digits.length; i += 8) {
-        st += 
+        st +=
             String.fromCharCode(
-            81 * digits[i + 1] +
-            27 * digits[i + 2] +
-            9 * digits[i + 3] +
-            3 * digits[i + 4] +
-            digits[i + 5])
+                81 * digits[i + 1] +
+                27 * digits[i + 2] +
+                9 * digits[i + 3] +
+                3 * digits[i + 4] +
+                digits[i + 5])
     }
     return st;
 }
 
-const message =  `Twas the night before Christmas, when all through the house
+const message = `Twas the night before Christmas, when all through the house
 Not a creature was stirring, not even a mouse...
      
 Happy new year to all Advent of Coders!
@@ -92,7 +94,7 @@ let flattenedInput: number[] = [
     0x01, 0x00, 0x08, 0x00, 0x64, 0x61, 0x74, 0x61, 0, 0, 0, 0
 ];
 
-for(let line of input){
+for (let line of input) {
     flattenedInput.push(...line.map(b => b + 0x80));
 }
 let bytes = new Uint8Array(flattenedInput);

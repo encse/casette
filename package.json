@@ -10,10 +10,7 @@
   "author": "encse@csokavar.hu",
   "license": "ISC",
   "dependencies": {
-    "@types/wav": "^1.0.0",
-    "esm": "^3.2.25",
-    "node-wav": "0.0.2",
-    "wav": "^1.0.2"
+    "esm": "^3.2.25"
   },
   "devDependencies": {
     "typescript": "^4.0.2",
