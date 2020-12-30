@@ -50,16 +50,24 @@
             out there might be able to help.
         </p>
         <p>We have managed to digitise the contents of the casettes, <a href="input.txt">your puzzle input</a>.</p> 
-        <p>Each row of your input contains a 4ms long section of the audio on the tape, numbers are between <em>-128</em> and <em>127</em>. According
-            to the old Datasette manual the casette stores a sequence of <em>1000</em>, <em>2000</em> and <em>3000Hz</em> audio samples to encode the digits 
+        <p>Each row of your input contains a 4ms long section of the audio on the tape, numbers are between <em>-128</em> and <em>127</em> (8-bit mono). 
+            According to the old Datasette manual the casette stores a sequence of <em>1000</em>, <em>2000</em> and <em>3000Hz</em> audio samples to encode the digits 
             <em>0</em>, <em>1</em> and <em>2</em> respectively.
         </p>
-        <p>According to the manual the tape contains ASCII text. Each character is encoded separately and uses <em>8 ternary digits</em> of 
-            the input.</p>
+        <p>The tape contains ASCII text. Each character is encoded separately and uses <em>8 ternary digits</em> of the input.</p>
         <p>The representation is in <em>base 3</em>, for example <em>"10"</em> means decimal <em>3</em>, <em>"21"</em> is decimal <em>7</em>.</p> 
         <p>Each character consists of a leading 0, five data digits and two closing digits 1 and 2 like: <em>0ddddd12</em>.
         <p>The first data digit is the most significant one (MSB order).</p>
         <p>Please try to recover whatever you can, and if you like the puzzle let others know about it.</p>
     </div>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-203054-9', 'auto');
+        ga('send', 'pageview');
+    </script>
 </body>
 </html>
