@@ -1,6 +1,4 @@
 import fs from 'fs';
-import wav from 'node-wav';
-import { start } from 'repl';
 
 function generateSample(freq: number) {
     var sample: number[] = [];
@@ -75,17 +73,29 @@ function decodeString(samples: number[][]): string {
     return st;
 }
 
-let input = encodeString(
-    `Twas the night before Christmas, when all through the house
+const message =  `Twas the night before Christmas, when all through the house
 Not a creature was stirring, not even a mouse...
      
-Happy new year to all advent of coders!
-`);
+Happy new year to all Advent of Coders!
+`;
+let input = encodeString(message);
 
-for(const line of input){
-    console.log( line.join(","));
+console.log(decodeString(input));
+if (decodeString(input) !== message) {
+    throw new Error("");
 }
 
-//let digits = input.map(decodeDigit);
-//console.log((digits as number[]).reduce((a,b) => a + b));
-//console.log(decodeString(input));
+fs.writeFileSync('public/input.txt', input.map(line => line.join(",")).join("\n"));
+let flattenedInput: number[] = [
+    0x52, 0x49, 0x46, 0x46, 0x14, 0x09, 0x01, 0x00, 0x57, 0x41, 0x56, 0x45, 0x66, 0x6d, 0x74, 0x20,
+    0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x50, 0x46, 0x00, 0x00, 0x50, 0x46, 0x00, 0x00,
+    0x01, 0x00, 0x08, 0x00, 0x64, 0x61, 0x74, 0x61, 0, 0, 0, 0
+];
+
+for(let line of input){
+    flattenedInput.push(...line.map(b => b + 0x80));
+}
+let bytes = new Uint8Array(flattenedInput);
+let header = new Uint32Array(bytes.buffer);
+header[10] = flattenedInput.length;
+fs.writeFileSync('input.wav', bytes);
