@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+    * {
+        font-family: 'VT323', monospace;
+        font-size: 24px;
+    }
+
+    html {
+
+        color: #aeaeae;
+        background: black;
+        line-height: 26px;
+    }
+
+    p, li {
+        margin: 8px 0;
+    }
+
+    img {
+        max-width: 500px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    div {
+        width: 100%;
+        max-width: 800px;
+        padding: 24px;
+    }
+
+    a {
+        color: #ffffff;
+    }
+    em {
+        color: white;
+        font-style: normal;
+    }
+</style>
+
+<body>
+    <div>
+        <p>Bad news, due to a hardware failure Santa has lost the <em>Naughty or Nice</em> list.</p>
+        <p>It seems that all data, the names, the addresses, everything got lost!</p>
+        <img src="casette.png" />
+        <p>Our last hope is in some BASF casettes now, that might contain at least parts of the list.
+            Unfortunately, the elves don't possess the necessary hardware to load it anymore, but somebody
+            out there might be able to help.
+        </p>
+        <p>We have managed to digitise the contents of the casettes, <a href="input">your puzzle input</a>.</p> 
+        <p>Each row of your input contains a 4ms long section of the audio on the tape, numbers are between <em>-128</em> and <em>127</em>. According
+            to the old Datasette manual the casette stores a sequence of <em>1000</em>, <em>2000</em> and <em>3000Hz</em> audio samples to encode the digits 
+            <em>0</em>, <em>1</em> and <em>2</em> respectively.
+        </p>
+        <p>According to the manual the tape contains ASCII text. Each character is encoded separately and uses <em>8 ternary digits</em> of 
+            the input.</p>
+        <p>The representation is in <em>base 3</em>, for example <em>"10"</em> means decimal <em>3</em>, <em>"21"</em> is decimal <em>7</em>.</p> 
+        <p>Each character consists of a leading 0, five data digits and two closing digits 1 and 2 like: <em>0ddddd12</em>.
+        <p>The first data digit is the most significant one (MSB order).</p>
+    </div>
+</body>
+</html>

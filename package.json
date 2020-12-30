@@ -1,0 +1,22 @@
+{
+  "name": "casette",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "npx tsc",
+    "start": "npm run compile && node -r esm build/index.js "
+  },
+  "author": "encse@csokavar.hu",
+  "license": "ISC",
+  "dependencies": {
+    "@types/wav": "^1.0.0",
+    "esm": "^3.2.25",
+    "node-wav": "0.0.2",
+    "wav": "^1.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2",
+    "@types/node": "^14.0.13"
+  }
+}
