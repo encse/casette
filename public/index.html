@@ -49,15 +49,22 @@
             Unfortunately, the elves don't possess the necessary hardware to load it anymore, but somebody
             out there might be able to help.
         </p>
-        <p>We have managed to digitise the contents of the casettes, <a href="input.txt">your puzzle input</a>.</p> 
-        <p>Each row of your input contains a 4ms long section of the audio on the tape, numbers are between <em>-128</em> and <em>127</em> (8-bit mono). 
-            According to the old Datasette manual the casette stores a sequence of <em>1000</em>, <em>2000</em> and <em>3000Hz</em> audio samples to encode the digits 
-            <em>0</em>, <em>1</em> and <em>2</em> respectively.
+        <p>We have managed to digitise the contents of the casettes. According to the old Datasette manual 
+            the casette stores a sequence of 4ms long audio signals with <em>1000</em>, <em>2000</em> or 
+            <em>3000Hz</em> frequencies. 
         </p>
-        <p>The tape contains ASCII text. Each character is encoded separately and uses <em>8 ternary digits</em> of the input.</p>
-        <p>The representation is in <em>base 3</em>, for example <em>"10"</em> means decimal <em>3</em>, <em>"21"</em> is decimal <em>7</em>.</p> 
+        <p>Data is encoded within the frequency of the signals. Each 4ms long signal represents one ternary digit.
+            An 1000Hz signal represents 0, one with 2000Hz means 1 and finally one with 3000Hz means 2.</p>
+        <p>Each row of <a href="input.txt">your puzzle input</a> contains a 4ms long section of the audio on the tape. Please 
+            identify the frequencies and map them to ternary digits.</p>
+        <p>-- Part 2 --</p>
+        <p>Once you have the digits continue with the recovery. The tape contains a sequence of ASCII characters. Each character is 
+            encoded using <em>8 ternary digits</em> of the input.</p>
         <p>Each character consists of a leading 0, five data digits and two closing digits 1 and 2 like: <em>0ddddd12</em>.
-        <p>The first data digit is the most significant one (MSB order).</p>
+        <p>The first data digit is the most significant one (MSB order). Since you have 3 different digits you should use base 3 when 
+            converting to numbers.
+        <p>For example if you have the digits <code>0<em>02102</em>12</code>, leave out the leading 0 and the trailing markers to get 
+            <code>02102</code>. Convert it to decimal to get 65 which is the ASCII code of the character <em>A</em>. 
         <p>Please try to recover whatever you can, and if you like the puzzle let others know about it.</p>
     </div>
     <script>
