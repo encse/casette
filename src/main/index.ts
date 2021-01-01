@@ -100,4 +100,4 @@ for (let line of input) {
 let bytes = new Uint8Array(flattenedInput);
 let header = new Uint32Array(bytes.buffer);
 header[10] = flattenedInput.length;
-fs.writeFileSync('input.wav', bytes);
+fs.writeFileSync('public/input.wav', bytes);
