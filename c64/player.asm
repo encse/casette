@@ -1,7 +1,6 @@
 ; Standalone ACME PRG
-; Loads at $080D and starts there
 ; Installs IRQ vector to call SID play routine each IRQ
-; SID is assumed to already be loaded at $4000
+; SID is assumed to already be loaded at sid_init, sid_play
 
 * = $2000                 ; update the sys in player.bas
 sid_init = $4000
@@ -18,18 +17,26 @@ start:
         stx $0315
         cli
 
-; draw screen
-        lda #$37
-        sta $01            ; enable I/O
+        jsr draw_screen
+        rts
+
+interrupt:
+        jsr sid_play
+        ;dec 53280        ; flash border to see we are live
+        jmp $EA31         ; do the normal KERNAL interrupt service routine
+
+draw_screen:
+        ;lda #$37
+        ;sta $01            ; enable I/O
 
         lda #$00
-        sta $D020      ; border color (53280)
+        sta $D020          ; border color
 
         lda #$06
-        sta $D021      ; background color (53281)
+        sta $D021          ; background color
 
         ldx #$00
-copy_screen:
+copy_screen_loop:
         lda $5000,x
         sta $0400,x
         lda $5100,x
@@ -38,26 +45,16 @@ copy_screen:
         sta $0600,x
         lda $52E8,x        ; 1000 = $03E8 → last page offset $E8
         sta $06E8,x
-        inx
-        bne copy_screen
-
-        ldx #$00
-copy_color:
         lda $6000,x
         sta $D800,x
         lda $6100,x
         sta $D900,x
         lda $6200,x
         sta $DA00,x
-        lda $62E8,x
+        lda $62E8,x        ; 1000 = $03E8 → last page offset $E8
         sta $DAE8,x
         inx
-        bne copy_color
-
+        bne copy_screen_loop
         rts
 
-interrupt:
-        jsr sid_play
-        ;dec 53280        ; flash border to see we are live
-        jmp $EA31         ; do the normal KERNAL interrupt service routine
 
