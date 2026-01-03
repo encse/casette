@@ -1,11 +1,17 @@
-; Standalone ACME PRG
-; Installs IRQ vector to call SID play routine each IRQ
-; SID is assumed to already be loaded at sid_init, sid_play
 
-* = $2000                 ; update the sys in player.bas
-sid_init = $4000
-sid_play = $4006
+* = $2000                    ; update the sys in player.bas
 
+SCREEN_RAM        = $0400
+COLOR_RAM         = $D800
+BORDER_COLOR      = $D020
+BACKGROUND_COLOR  = $D021
+
+sid_init    = $4000          ; sid assumed to be loaded here
+sid_play    = $4006
+image_chars = $5000          ; picture loaded here
+image_color = $5400          ; color info loaded here
+
+; Installs IRQ vector to call SID play routine each IRQ and draws the screen
 start:
         lda #$00          ; select first tune (try #$01 if needed)
         jsr sid_init      ; init music
@@ -25,36 +31,42 @@ interrupt:
         ;dec 53280        ; flash border to see we are live
         jmp $EA31         ; do the normal KERNAL interrupt service routine
 
-draw_screen:
-        ;lda #$37
-        ;sta $01            ; enable I/O
 
+draw_screen:
         lda #$00
-        sta $D020          ; border color
+        sta BORDER_COLOR
 
         lda #$06
-        sta $D021          ; background color
+        sta BACKGROUND_COLOR
 
-        ldx #$00
-copy_screen_loop:
-        lda $5000,x
-        sta $0400,x
-        lda $5100,x
-        sta $0500,x
-        lda $5200,x
-        sta $0600,x
-        lda $52E8,x        ; 1000 = $03E8 → last page offset $E8
-        sta $06E8,x
-        lda $6000,x
-        sta $D800,x
-        lda $6100,x
-        sta $D900,x
-        lda $6200,x
-        sta $DA00,x
-        lda $62E8,x        ; 1000 = $03E8 → last page offset $E8
-        sta $DAE8,x
-        inx
-        bne copy_screen_loop
+        ; copy screen and color info in 4x250 byte chunks
+        ldx #$FA
+-       dex
+
+        lda image_chars + 0 * $fa,x
+        sta SCREEN_RAM  + 0 * $fa,x
+
+        lda image_chars + 1 * $fa,x
+        sta SCREEN_RAM  + 1 * $fa,x
+        
+        lda image_chars + 2 * $fa,x
+        sta SCREEN_RAM  + 2 * $fa,x
+        
+        lda image_chars + 3 * $fa,x
+        sta SCREEN_RAM  + 3 * $fa,x
+
+        lda image_color + 0 * $fa,x
+        sta COLOR_RAM + 0 * $fa,x
+
+        lda image_color + 1 * $fa,x
+        sta COLOR_RAM + 1 * $fa,x
+
+        lda image_color + 2 * $fa,x
+        sta COLOR_RAM + 2 * $fa,x
+
+        lda image_color + 3 * $fa,x
+        sta COLOR_RAM + 3 * $fa,x
+
+        cpx #$00
+        bne -
         rts
-
-
