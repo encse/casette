@@ -8,8 +8,6 @@ BACKGROUND_COLOR  = $D021
 
 sid_init    = $4000          ; sid assumed to be loaded here
 sid_play    = $4006
-image_chars = $5000          ; picture loaded here
-image_color = $5400          ; color info loaded here
 
 ; Installs IRQ vector to call SID play routine each IRQ and draws the screen
 start:
@@ -70,3 +68,8 @@ draw_screen:
         cpx #$00
         bne -
         rts
+
+image_chars:
+    !bin "image.bin"
+image_color:
+    !bin "color.bin"
