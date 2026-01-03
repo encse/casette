@@ -54,16 +54,16 @@ draw_screen:
         sta SCREEN_RAM  + 3 * $fa,x
 
         lda image_color + 0 * $fa,x
-        sta COLOR_RAM + 0 * $fa,x
+        sta COLOR_RAM   + 0 * $fa,x
 
         lda image_color + 1 * $fa,x
-        sta COLOR_RAM + 1 * $fa,x
+        sta COLOR_RAM   + 1 * $fa,x
 
         lda image_color + 2 * $fa,x
-        sta COLOR_RAM + 2 * $fa,x
+        sta COLOR_RAM   + 2 * $fa,x
 
         lda image_color + 3 * $fa,x
-        sta COLOR_RAM + 3 * $fa,x
+        sta COLOR_RAM   + 3 * $fa,x
 
         cpx #$00
         bne -
